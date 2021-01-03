@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "ahs:block/ruby_block" }
+  }
+}
