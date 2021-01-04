@@ -2,7 +2,7 @@ package com.viruss.ahs;
 
 import com.viruss.ahs.player.capabilities.injure.IInjureCapability;
 import com.viruss.ahs.player.capabilities.injure.InjureCapability;
-import com.viruss.ahs.player.capabilities.injure.InjureStorage;
+import com.viruss.ahs.player.capabilities.InjureStorage;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potions;
 import net.minecraftforge.common.capabilities.*;
@@ -30,13 +30,9 @@ public class AHS
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::OnLoadComplete);
 
-        
         RegistryHandler.init();
 
         MinecraftForge.EVENT_BUS.register(this);
-        //dont eby
-       // IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-       // modBus.addListener(this::OnLoadComplete);
     }
 
     private void setup(final FMLCommonSetupEvent event)

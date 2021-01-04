@@ -1,4 +1,4 @@
-package com.viruss.ahs.items;
+package com.viruss.ahs.items.bases;
 
 import java.util.List;
 

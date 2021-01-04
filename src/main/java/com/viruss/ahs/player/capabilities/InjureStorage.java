@@ -1,4 +1,4 @@
-package com.viruss.ahs.player.capabilities.injure;
+package com.viruss.ahs.player.capabilities;
 
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;

@@ -1,4 +1,4 @@
-package com.viruss.ahs.items;
+package com.viruss.ahs.items.bases;
 
 import com.viruss.ahs.AHS;
 
@@ -11,5 +11,6 @@ public class ItemBase extends Item
 	{
 		super(new Item.Properties().group(AHS.AHS_Tab));
 	}
+	public ItemBase(Item.Properties properties){super(properties.group(AHS.AHS_Tab));}
 
 }
