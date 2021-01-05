@@ -39,8 +39,8 @@ public class RegistryHandler
 		EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 	//Items
-	public static final RegistryObject<Item> Empty_BloodBag = ITEMS.register("empty_bloodbag", BloodBag::new);
-	public static final RegistryObject<Item> Full_BloodBag = ITEMS.register("full_bloodbag", BloodBag::new);
+	public static final RegistryObject<Item> Empty_BloodBag = ITEMS.register("empty_bloodbag", () -> new BloodBag(false));
+	public static final RegistryObject<Item> Full_BloodBag = ITEMS.register("full_bloodbag", () -> new BloodBag(true));
 
 	public static final RegistryObject<Item> Empty_Syringe = ITEMS.register("empty_syringe", Syringe::new);
 	public static final RegistryObject<Item> Infected_Syringe = ITEMS.register("infected_syringe", Syringe::new);

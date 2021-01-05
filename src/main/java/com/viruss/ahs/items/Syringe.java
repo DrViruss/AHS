@@ -2,6 +2,7 @@ package com.viruss.ahs.items;
 
 import com.viruss.ahs.items.bases.ItemBase;
 
+//TODO: Complete this!
 public class Syringe extends ItemBase {
     public Fluid fluid;
 

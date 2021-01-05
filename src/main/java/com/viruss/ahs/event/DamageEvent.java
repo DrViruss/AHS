@@ -2,8 +2,10 @@ package com.viruss.ahs.event;
 
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.damage.DamageFilter;
-import com.viruss.ahs.player.attributes.blood.IBloodAttribute;
-import net.minecraft.potion.Effects;
+import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
+import com.viruss.ahs.util.RegistryHandler;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.StringTextComponent;
@@ -26,8 +28,8 @@ public class DamageEvent
 		if(!event.getEntityLiving().getEntityWorld().isRemote())/*--------------------------*/
 			if (DamageFilter.isPlayerFall(event)) {
 				event.setDamageMultiplier(0);
-
 				float distance = event.getDistance();
+
 				if (distance >= 4) {
 					if (distance < 6) {
 						if ((int) (Math.random() * 100) < 50)
@@ -51,12 +53,12 @@ public class DamageEvent
 
 				}
 				//TODO: Add Broken leg
-//				AHS.LOGGER.info("Iam fall");
 			}
 		}
 	 @SubscribeEvent
 	 public static void GenericDamage(LivingAttackEvent event)
 	 {
+	 	LivingEntity player = event.getEntityLiving();
 		if(!event.getEntityLiving().getEntityWorld().isRemote())/*--------------------------*/
 		 if(DamageFilter.isPlayerDamaged(event) )
 		 {
@@ -64,10 +66,10 @@ public class DamageEvent
 			 {
 				 //TODO: Add infection
 				 AHS.LOGGER.info("Player attacked by Zombie");					//
-				 event.getEntityLiving().getAttribute(IBloodAttribute.BLOOD_ATTRIBUTE).setBaseValue(event.getEntityLiving().getAttribute(IBloodAttribute.BLOOD_ATTRIBUTE).getValue()-10);
-				 event.getEntityLiving().sendMessage(new StringTextComponent("current blood level ="+event.getEntityLiving().getAttribute(IBloodAttribute.BLOOD_ATTRIBUTE).getValue()));
-//				 				NO ATTRIBUTES! Only moddifiers! 	Try t use NBT-TAG
-//				 Effects
+				 player.getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(event.getEntityLiving().getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()-10);
+				 player.addPotionEffect(new EffectInstance(RegistryHandler.BLEEDING.get(),300,0,false,false));
+				 player.sendMessage(new StringTextComponent("current blood level ="+event.getEntityLiving().getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()));
+//				 				NO ATTRIBUTES! Only moddifiers!
 
 
 			 }
@@ -79,10 +81,9 @@ public class DamageEvent
 		 }
 	 }
 
-	 /////////////////////////////////////////////////////
 
 
-
+	 //			Future Zone
 
 
 //	 @SubscribeEvent

@@ -1,7 +1,7 @@
 package com.viruss.ahs.event;
 
 import com.viruss.ahs.AHS;
-import com.viruss.ahs.player.attributes.blood.IBloodAttribute;
+import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
@@ -16,6 +16,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = AHS.MOD_ID,bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
 public class MiscEvents {
@@ -48,8 +50,11 @@ public class MiscEvents {
     {
         AbstractAttributeMap attributes = event.getPlayer().getAttributes();
 
-        if(attributes.getAttributeInstance(IBloodAttribute.BLOOD_ATTRIBUTE) == null)
-            attributes.registerAttribute(IBloodAttribute.BLOOD_ATTRIBUTE);
+        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
+            attributes.registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
+
+        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE) == null)
+            attributes.registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
     }
 
     @SubscribeEvent
@@ -63,11 +68,19 @@ public class MiscEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
     {
         AbstractAttributeMap attributes = event.getPlayer().getAttributes();
+        Random random = new Random();
 
-        if(attributes.getAttributeInstance(IBloodAttribute.BLOOD_ATTRIBUTE) == null)
-            attributes.registerAttribute(IBloodAttribute.BLOOD_ATTRIBUTE);
+        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
+            attributes.registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
         else
-            attributes.getAttributeInstance(IBloodAttribute.BLOOD_ATTRIBUTE).setBaseValue(IBloodAttribute.MAX_BLOOD_LVL);
+            attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(100);
+
+
+
+        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE) == null)
+            attributes.registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
+
+            attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE).setBaseValue(random.nextInt(7));
     }
 
 
