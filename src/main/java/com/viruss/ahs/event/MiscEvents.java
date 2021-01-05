@@ -48,6 +48,7 @@ public class MiscEvents {
     @SubscribeEvent
     public static void OnSpawn(PlayerEvent.PlayerLoggedInEvent event)
     {
+        Random random = new Random();
         AbstractAttributeMap attributes = event.getPlayer().getAttributes();
 
         if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
@@ -55,6 +56,8 @@ public class MiscEvents {
 
         if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE) == null)
             attributes.registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
+
+        attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE).setBaseValue(random.nextInt(7));
     }
 
     @SubscribeEvent
@@ -67,12 +70,13 @@ public class MiscEvents {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
     {
-        AbstractAttributeMap attributes = event.getPlayer().getAttributes();
         Random random = new Random();
+        AbstractAttributeMap attributes = event.getPlayer().getAttributes();
+
 
         if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
             attributes.registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
-        else
+
             attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(100);
 
 

@@ -1,4 +1,4 @@
-package com.viruss.ahs.helpers;
+package com.viruss.ahs.util;
 
 import org.lwjgl.glfw.GLFW;
 

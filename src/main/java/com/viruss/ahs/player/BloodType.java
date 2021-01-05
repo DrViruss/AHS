@@ -94,4 +94,15 @@ public class BloodType {
         return result;
     }
 
+    @Override
+    public String toString() {
+        String result= this.getType().name();
+
+        if(this.isPositive())
+            result += "+";
+        else
+            result += "-";
+
+        return result;
+    }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.viruss.ahs.AHS;
-import com.viruss.ahs.helpers.KeyboardHelper;
+import com.viruss.ahs.util.KeyboardHelper;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
