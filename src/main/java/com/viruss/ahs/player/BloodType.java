@@ -26,6 +26,11 @@ public class BloodType {
 
     }
 
+    public BloodType(String type) {
+        this.type = Type.valueOf(type.substring(0,type.length()-1));
+        this.positive = type.charAt(type.length()-1) == '+';
+    }
+
     public Type getType() {
         return type;
     }
@@ -105,4 +110,13 @@ public class BloodType {
 
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BloodType bloodType = (BloodType) o;
+        return positive == bloodType.positive && type == bloodType.type;
+    }
+
 }

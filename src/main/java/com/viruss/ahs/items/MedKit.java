@@ -6,9 +6,10 @@ import net.minecraft.item.Item;
 
 //TODO: Complete this!
 public class MedKit extends ItemBase {
-    boolean type; //true = normal   |   false = creative
+    boolean isCreative;
 
-    public MedKit() {
+    public MedKit(boolean isCreative) {
         super(new Item.Properties().maxStackSize(1));
+        this.isCreative = isCreative;
     }
 }

@@ -1,31 +1,40 @@
 {
 "itemGroup.Advanced_Health_System_Tab":"Advanced Health System",
-"item.ahs.empty_bloodbag":"Blood bag (Empty)",
-"item.ahs.full_bloodbag":"Blood bag(Full)",
+
+"item.ahs.empty_bloodbag":"Blood bag",
+"item.ahs.full_bloodbag":"Blood bag",
+
 "item.ahs.empty_syringe":"Syringe(Empty)",
 "item.ahs.infected_syringe":"Syringe(Infected)",
 "item.ahs.adrenaline_syringe":"Syringe(Adrenaline)",
 "item.ahs.morphine_syringe":"Syringe(Morphine)",
+
 "item.ahs.silk_string":"String(Silk)",
 "item.ahs.rubber_string":"String(Rubber)",
+
 "item.ahs.test_tube":"Test tube (Empty)",
 "item.ahs.zombie_saliva":"Test tube (Zombie saliva)",
 "item.ahs.z_vaccine":"Test tube(ZVaccine)",
+
 "item.ahs.creative_medkit":"Medkit(Creative)",
 "item.ahs.survival_medkit":"Medkit(Survival)",
+
 "item.ahs.bandage":"Bandage",
 "item.ahs.elastic_bandage":"Bandage(Elastic)",
+
+"item.ahs.ice_bag_empty":"Ice bag(Empty)",
+"item.ahs.ice_bag_cold":"Ice bag(Cold)",
+"item.ahs.ice_bag_warm":"Ice bag(Warm)",
+"item.ahs.ice_bag_hot":"Ice bag(Hot)",
+
 "item.ahs.rag":"Rag",
 "item.ahs.medical_patch":"Medical patch",
 "item.ahs.splint":"Splint",
 "item.ahs.tourniquet":"Tourniquet",
 "item.ahs.hidrogen_peroxide":"Bottle of Hidrogen peroxide",
-"item.ahs.ice_bag_empty":"Ice bag(Empty)",
-"item.ahs.ice_bag_cold":"Ice bag(Cold)",
-"item.ahs.ice_bag_warm":"Ice bag(Warm)",
-"item.ahs.ice_bag_hot":"Ice bag(Hot)",
 "item.ahs.suture_needle":"Suture Needle",
 "item.ahs.tweezers":"Tweezers",
+
 "item.ahs.antibiotics":"Antibiotics",
 "item.ahs.painkilllers":"Painkilllers"
 }
