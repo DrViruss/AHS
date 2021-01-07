@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 
 //TODO: Make this thing ALIVE!
+
 public class PlayerPartEntity  extends Entity {
     public final EntitySize size;
     public final PlayerPart part;

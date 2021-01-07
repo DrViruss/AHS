@@ -13,13 +13,20 @@ import com.viruss.ahs.items.syringe.EmptySyringe;
 import com.viruss.ahs.items.syringe.FullSyringe;
 import com.viruss.ahs.player.effects.BleedingEffect;
 import net.minecraft.block.Block;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeMap;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class RegistryHandler
 {
@@ -32,14 +39,16 @@ public class RegistryHandler
 	
 	
 	
-	
-	public static void init()
+	public static void initDefRegs()
 	{
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-
 		EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 	}
+
+
+
 	//Items
 	public static final RegistryObject<Item> Empty_BloodBag = ITEMS.register("empty_bloodbag", () -> new BloodBag(false));
 	public static final RegistryObject<Item> Full_BloodBag = ITEMS.register("full_bloodbag", () -> new BloodBag(true));

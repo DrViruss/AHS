@@ -2,9 +2,12 @@ package com.viruss.ahs.event;
 
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,6 +39,22 @@ public class MiscEvents {
 //            }
 //        }
 //    }
+
+    @SubscribeEvent
+    public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event)
+    {
+        // Fixed resetting after rejoin
+
+        if (event.getObject() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.getObject();
+//            event.addCapability(IPlayerThirst.domain, new CapabilityThirst.Provider(player));
+
+            player.getAttributes().registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
+            player.getAttributes().registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
+//            event.addCapability(IPlayerMagic.domain, new CapabilityMagic.Provider(player));
+        }
+    }
 
     @SubscribeEvent
     public static void OnSpawn(PlayerEvent.PlayerLoggedInEvent event)

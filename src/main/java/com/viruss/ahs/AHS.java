@@ -1,15 +1,16 @@
 package com.viruss.ahs;
 
+import com.viruss.ahs.player.capabilities.InjureStorage;
 import com.viruss.ahs.player.capabilities.injure.IInjureCapability;
 import com.viruss.ahs.player.capabilities.injure.InjureCapability;
-import com.viruss.ahs.player.capabilities.InjureStorage;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potions;
-import net.minecraftforge.common.capabilities.*;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Potions;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -26,11 +27,14 @@ public class AHS
 	public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "ahs";
     public AHS() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::OnLoadComplete);
 
-        RegistryHandler.init();
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        modBus.addListener(this::setup);
+        modBus.addListener(this::doClientStuff);
+        modBus.addListener(this::OnLoadComplete);
+
+        RegistryHandler.initDefRegs();
 
         MinecraftForge.EVENT_BUS.register(this);
     }
