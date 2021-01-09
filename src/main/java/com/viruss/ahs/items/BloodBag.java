@@ -24,8 +24,13 @@ import java.util.List;
 
 public class BloodBag extends AbstractFluidBag {
     boolean full;
+
     public static final java.lang.String BloodGroupTagKey = "BloodGroup";
 
+    /**
+     * Create new BloodBag
+     * @param full is it full?
+     */
     public BloodBag(boolean full) {
         super(new Item.Properties().maxStackSize(1));
         this.full = full;
@@ -87,8 +92,8 @@ public class BloodBag extends AbstractFluidBag {
 
     /**
      * Checks could you receive this BloodGroup
-     * @param playersBG
-     * @param ReceivedBG
+     * @param playersBG BloodGroup of player
+     * @param ReceivedBG BloodGroup which player try to use
      * @return true if you can receive this BloodGroup
      */
     private boolean isSuitableBG(BloodType playersBG, BloodType ReceivedBG) {
@@ -104,8 +109,8 @@ public class BloodBag extends AbstractFluidBag {
     }
 
     /**
-     * Create NBT tag if ItemStack dont have BG tag
-     * @param heldItem
+     * Create NBT tag if ItemStack don't have BG tag
+     * @param heldItem ItemStack
      */
     private void NBTCreator(ItemStack heldItem)
     {

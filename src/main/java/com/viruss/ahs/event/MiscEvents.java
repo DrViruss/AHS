@@ -2,13 +2,21 @@ package com.viruss.ahs.event;
 
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
+import com.viruss.ahs.player.capabilities.TEST.TestCaProvider;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,6 +25,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = AHS.MOD_ID,bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
 public class MiscEvents {
+
 //    @SubscribeEvent
 //    public static void EntityInteractEvent(PlayerInteractEvent.EntityInteract event)
 //    {
@@ -40,6 +49,32 @@ public class MiscEvents {
 //        }
 //    }
 
+                                /*Just_Cap_TETS*/
+    @SubscribeEvent
+    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
+
+        if (event.getSpawnReason() == SpawnReason.SPAWN_EGG) {
+            LivingEntity entity = event.getEntityLiving();
+            if (entity.getEntityWorld().dimension.getType().equals(DimensionType.OVERWORLD)) {
+                if (entity instanceof SpiderEntity) {
+                    event.setCanceled(true);
+                }
+
+                if(entity instanceof SkeletonEntity)
+                {
+                    entity.getCapability(TestCaProvider.TEST_BLOCKPOS_CAP).ifPresent(handler -> {
+                        handler.setPos(new BlockPos(100,100,100));
+                    });
+
+                    entity.getCapability(TestCaProvider.TEST_BLOCKPOS_CAP).ifPresent(handler -> {
+                        AHS.LOGGER.warn("EntityCapability + SkeletonEntity spawnPos:\t"+handler.getPos());
+                    });
+                }
+            }
+        }
+    }
+
+
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event)
     {
@@ -48,28 +83,36 @@ public class MiscEvents {
         if (event.getObject() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getObject();
-//            event.addCapability(IPlayerThirst.domain, new CapabilityThirst.Provider(player));
-
             player.getAttributes().registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
             player.getAttributes().registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
-//            event.addCapability(IPlayerMagic.domain, new CapabilityMagic.Provider(player));
+        }
+
+
+
+                                        /*TEST_ZONE*/
+        if ( event.getObject() instanceof SkeletonEntity)
+        {
+            ResourceLocation spawnLoc = new ResourceLocation(AHS.MOD_ID, "spawn_loc");
+            event.addCapability(spawnLoc, new TestCaProvider());
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     @SubscribeEvent
     public static void OnSpawn(PlayerEvent.PlayerLoggedInEvent event)
     {
-        Random random = new Random();
-        AbstractAttributeMap attributes = event.getPlayer().getAttributes();
 
-        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
-            attributes.registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
 
-        if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE) == null) {
-            attributes.registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
-            System.out.println("Creating a new BLOOD_TYPE_ATTRIBUTE by LOGGED_IN");
-            attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE).setBaseValue(random.nextInt(7));
-        }
     }
 
     @SubscribeEvent
@@ -85,20 +128,15 @@ public class MiscEvents {
         Random random = new Random();
         AbstractAttributeMap attributes = event.getPlayer().getAttributes();
 
-
         if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE) == null)
             attributes.registerAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE);
 
             attributes.getAttributeInstance(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(100);
 
-
-
         if(attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE) == null) {
+            System.out.println("UPDATING a new BLOOD_TYPE_ATTRIBUTE by RESPAWN");
             attributes.registerAttribute(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE);
-            System.out.println("Creating a new BLOOD_TYPE_ATTRIBUTE by RESPAWNING");
         }
-
-            System.out.println("Updating BLOOD_TYPE_ATTRIBUTE by RESPAWNING");
             attributes.getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE).setBaseValue(random.nextInt(7));
     }
 

@@ -1,13 +1,10 @@
 package com.viruss.ahs;
 
-import com.viruss.ahs.player.capabilities.InjureStorage;
-import com.viruss.ahs.player.capabilities.injure.IInjureCapability;
-import com.viruss.ahs.player.capabilities.injure.InjureCapability;
+import com.viruss.ahs.player.capabilities.TEST.ITestCap;
+import com.viruss.ahs.player.capabilities.TEST.TestCaProvider;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,6 +23,8 @@ public class AHS
 {
 	public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "ahs";
+
+
     public AHS() {
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -42,10 +41,7 @@ public class AHS
     private void setup(final FMLCommonSetupEvent event)
     {
                                             /*TO BE CONTINUED*/
-        CapabilityManager.INSTANCE.register(IInjureCapability.class,new InjureStorage(),() -> new InjureCapability(IInjureCapability.IdlenessEnum.Pain, IInjureCapability.LimbEnum.Leg, IInjureCapability.SideEnum.Left,10f,new EffectInstance(Potions.STRONG_SLOWNESS.getEffects().get(0))));
-
-
-
+        CapabilityManager.INSTANCE.register(ITestCap.class, new TestCaProvider.TestCapStorage(), TestCaProvider.TestCap::new);
 
     }
 
@@ -61,7 +57,7 @@ public class AHS
     	}
     };
 
-    //eby nemnogo
+
     public void OnLoadComplete(FMLLoadCompleteEvent event){
 
 
