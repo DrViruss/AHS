@@ -19,7 +19,7 @@ displayURL="http://example.com/" #optional
 
 logoFile="examplemod.png" #optional
 
-credits="Thanks for TechnoVision for tutorial and ProjectZomboid for idea" #optional
+credits="TEST_CREDITS" #optional
 
 authors="DrViruss" #optional
 

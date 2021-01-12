@@ -1,10 +1,13 @@
 package com.viruss.ahs;
 
-import com.viruss.ahs.player.capabilities.TEST.ITestCap;
-import com.viruss.ahs.player.capabilities.TEST.TestCaProvider;
+import com.viruss.ahs.player.capabilities.IAbstractInjureCapability;
+import com.viruss.ahs.player.capabilities.InjureCaps;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("ahs")
+@Mod(AHS.MOD_ID)
 public class AHS
 {
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -41,7 +44,7 @@ public class AHS
     private void setup(final FMLCommonSetupEvent event)
     {
                                             /*TO BE CONTINUED*/
-        CapabilityManager.INSTANCE.register(ITestCap.class, new TestCaProvider.TestCapStorage(), TestCaProvider.TestCap::new);
+        CapabilityManager.INSTANCE.register(IAbstractInjureCapability.class,new InjureCaps.AbstractInjureStorage(), InjureCaps.AbstractInjureCapability::new);
 
     }
 
@@ -59,8 +62,6 @@ public class AHS
 
 
     public void OnLoadComplete(FMLLoadCompleteEvent event){
-
-
 
     }
 

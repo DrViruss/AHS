@@ -1,8 +1,8 @@
 package com.viruss.ahs.items;
 
-import com.viruss.ahs.items.bases.AbstractFluidBag;
 import com.viruss.ahs.player.BloodType;
-import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
+import com.viruss.ahs.items.bases.AbstractFluidBag;
+import com.viruss.ahs.player.attributes.BloodAttributes;
 import com.viruss.ahs.util.KeyboardHelper;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.client.util.ITooltipFlag;
@@ -66,7 +66,7 @@ public class BloodBag extends AbstractFluidBag {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
 
-            BloodType playersBG = new BloodType((int) playerIn.getAttributes().getAttributeInstance(IBloodAttributes.BLOOD_TYPE_ATTRIBUTE).getValue());
+            BloodType playersBG = new BloodType((int) playerIn.getAttributes().getAttributeInstance(BloodAttributes.BLOOD_TYPE_ATTRIBUTE).getValue());
             ItemStack heldItem = playerIn.getHeldItemMainhand();
             if (full) {
 

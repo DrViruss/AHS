@@ -14,7 +14,7 @@ public class PlayerPartEntity  extends Entity {
     public final PlayerEntity player;
 
 
-    public enum PlayerPart{Head,LeftArm,RightArm,LeftLeg,RightLeg}
+    public enum PlayerPart{Head,LeftArm,RightArm,LeftLeg,RightLeg,Body}
 
 
     public PlayerPartEntity(PlayerEntity player, PlayerPart part,float width,float height) {

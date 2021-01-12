@@ -1,16 +1,18 @@
 package com.viruss.ahs.util;
 
+import com.viruss.ahs.items.BloodBag;
+import com.viruss.ahs.items.IceBag;
+import com.viruss.ahs.items.MedKit;
+import com.viruss.ahs.items.bases.PillsBase;
+import com.viruss.ahs.items.syringe.FullSyringe;
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.blocks.BlockItemBase;
 import com.viruss.ahs.blocks.CustomBlock;
 import com.viruss.ahs.blocks.RubyBlock;
 import com.viruss.ahs.items.String;
-import com.viruss.ahs.items.*;
 import com.viruss.ahs.items.bases.CustomItem;
 import com.viruss.ahs.items.bases.ItemBase;
-import com.viruss.ahs.items.bases.PillsBase;
 import com.viruss.ahs.items.syringe.EmptySyringe;
-import com.viruss.ahs.items.syringe.FullSyringe;
 import com.viruss.ahs.player.effects.BleedingEffect;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -54,15 +56,16 @@ public class RegistryHandler
 	public static final RegistryObject<Item> Silk_String = ITEMS.register("silk_string", String::new);
 	public static final RegistryObject<Item> Rubber_String = ITEMS.register("rubber_string", String::new);
 
-	public static final RegistryObject<Item> Test_Tube = ITEMS.register("test_tube", TestTube::new);
-	public static final RegistryObject<Item> Zombie_Saliva = ITEMS.register("zombie_saliva", TestTube::new);
-	public static final RegistryObject<Item> Z_Vaccine = ITEMS.register("z_vaccine", TestTube::new);
+//	public static final RegistryObject<Item> Test_Tube = ITEMS.register("test_tube", TestTube::new);
+//	public static final RegistryObject<Item> Zombie_Saliva = ITEMS.register("zombie_saliva", TestTube::new);
+//	public static final RegistryObject<Item> Z_Vaccine = ITEMS.register("z_vaccine", TestTube::new);
+
 
 	public static final RegistryObject<Item> Creative_Medkit = ITEMS.register("creative_medkit", () -> new MedKit(true));
 	public static final RegistryObject<Item> Survival_Medkit = ITEMS.register("survival_medkit", () -> new MedKit(true));
 
-	public static final RegistryObject<Item> Bandage = ITEMS.register("bandage", Bandage::new);
-	public static final RegistryObject<Item> Elastic_Bandage = ITEMS.register("elastic_bandage", Bandage::new);
+	public static final RegistryObject<Item> Bandage = ITEMS.register("bandage", com.viruss.ahs.items.Bandage::new);
+	public static final RegistryObject<Item> Elastic_Bandage = ITEMS.register("elastic_bandage", com.viruss.ahs.items.Bandage::new);
 
 	public static final RegistryObject<Item> Rag = ITEMS.register("rag", ItemBase::new);
 	public static final RegistryObject<Item> Medical_Patch = ITEMS.register("medical_patch", ItemBase::new);

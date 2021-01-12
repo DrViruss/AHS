@@ -1,8 +1,8 @@
-package com.viruss.ahs.event;
+package com.viruss.ahs.events;
 
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.damage.DamageFilter;
-import com.viruss.ahs.player.attributes.blood.IBloodAttributes;
+import com.viruss.ahs.player.attributes.BloodAttributes;
 import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
@@ -15,14 +15,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-;
-
 @Mod.EventBusSubscriber(modid = AHS.MOD_ID,bus = Bus.FORGE/*,value = Dist.DEDICATED_SERVER*/) //SERVER-SIDE DONT WORK
 public class DamageEvent
 {
-
-	// if(!event.getEntityLiving().getEntityWorld().isRemote()) - RENDER CLIENT
-
 	@SubscribeEvent
 	 public static void BrokenLegEvent(LivingFallEvent event) {
 		if(!event.getEntityLiving().getEntityWorld().isRemote())/*--------------------------*/
@@ -52,7 +47,6 @@ public class DamageEvent
 					}
 
 				}
-				//TODO: Add Broken leg
 			}
 		}
 	 @SubscribeEvent
@@ -64,14 +58,10 @@ public class DamageEvent
 		 {
 			 if(DamageFilter.isZombieAttacker(event)) 
 			 {
-				 //TODO: Add infection
-				 AHS.LOGGER.info("Player attacked by Zombie");					//
-				 player.getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(event.getEntityLiving().getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()-10);
+				 AHS.LOGGER.info("Player attacked by Zombie");
+				 player.getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(event.getEntityLiving().getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()-10);
 				 player.addPotionEffect(new EffectInstance(RegistryHandler.BLEEDING.get(),300,0,false,false));
-				 player.sendMessage(new StringTextComponent("current blood level ="+event.getEntityLiving().getAttribute(IBloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()));
-//				 				NO ATTRIBUTES! Only moddifiers!
-
-
+				 player.sendMessage(new StringTextComponent("current blood level ="+event.getEntityLiving().getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()));
 			 }
 //			 else
 //			 {
