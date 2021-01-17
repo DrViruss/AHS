@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -22,7 +23,7 @@ public class FullSyringe extends EmptySyringe {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         System.out.println(playerIn.getHeldItemMainhand().getDisplayName()+"\n With Fluid: "+this.fluid.name()+"\n Target:"+target.getDisplayName());
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }

@@ -21,11 +21,8 @@ build
 eclipse
 run
 logs
-test
+.floo
+.flooignore
 
 # Files from Forge MDK
 forge*changelog.txt
-
-#floo
-.floo
-.flooignore

@@ -1,17 +1,12 @@
 package com.viruss.ahs.player.effects;
 
-import com.viruss.ahs.player.attributes.BloodAttributes;
+import com.viruss.ahs.util.AttributesRegistrar;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 
 //TODO: Fix Icon Error msg
 public class BleedingEffect extends Effect {
@@ -23,7 +18,7 @@ public class BleedingEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
 
-        IAttributeInstance attribute = entityLivingBaseIn.getAttributes().getAttributeInstance(BloodAttributes.BLOOD_LVL_ATTRIBUTE);
+        ModifiableAttributeInstance attribute = entityLivingBaseIn.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get());
 
         if(attribute != null) {     //if this is player
             if (attribute.getValue() == 30) {

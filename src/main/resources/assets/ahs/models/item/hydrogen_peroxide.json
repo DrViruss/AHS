@@ -1,6 +1,6 @@
 {
    "parent": "item/generated",
    "textures": {
-       "layer0": "ahs:items/hidrogen_peroxide"
+       "layer0": "ahs:items/hydrogen_peroxide"
    }
 }

@@ -1,18 +1,16 @@
 package com.viruss.ahs.events;
 
 import com.viruss.ahs.AHS;
-import com.viruss.ahs.player.attributes.BloodAttributes;
+import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.player.capabilities.InjureCaps;
 import com.viruss.ahs.player.injures.AbstractInjure;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -53,9 +51,12 @@ public class MiscEvents {
         {
             PlayerEntity player = (PlayerEntity) event.getObject();
 
+//MobEntity.func_233666_p_().createMutableAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).create()
+
+
                                     /*Attributes*/
-            player.getAttributes().registerAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE);
-            player.getAttributes().registerAttribute(BloodAttributes.BLOOD_TYPE_ATTRIBUTE);
+//            player.getAttributeManager().createInstanceIfAbsent(BloodAttributes.BLOOD_LVL_ATTRIBUTE);
+//            player.getAttributeManager().createInstanceIfAbsent(BloodAttributes.BLOOD_TYPE_ATTRIBUTE);
 
                                     /*Capabilities*/
             event.addCapability(new ResourceLocation(AHS.MOD_ID,"injure"),new InjureCaps.InjureProvider());
@@ -81,6 +82,7 @@ public class MiscEvents {
     @SubscribeEvent
     public static void tick(TickEvent.PlayerTickEvent event)
     {
+
 //			if(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName() != null)
 //				AHS.LOGGER.info(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName());
     }
@@ -88,12 +90,13 @@ public class MiscEvents {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
     {
-        if(!event.getPlayer().world.isRemote) {
+        PlayerEntity player = event.getPlayer();
+        if(!player.world.isRemote) {
             Random random = new Random();
 
-            AbstractAttributeMap attributes = event.getPlayer().getAttributes();
-            attributes.getAttributeInstance(BloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(100);
-            attributes.getAttributeInstance(BloodAttributes.BLOOD_TYPE_ATTRIBUTE).setBaseValue(random.nextInt(7));
+
+            player.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get()).setBaseValue(100);
+            player.getAttribute(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()).setBaseValue(random.nextInt(7));
 
 
                                         /*CapTEST*/

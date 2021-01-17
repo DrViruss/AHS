@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -110,8 +109,8 @@ public class CustomBlock extends Block
 			Hand handIn, BlockRayTraceResult result) {
 		if (!worldIn.isRemote()) {
 			ServerWorld serverWorld = (ServerWorld) worldIn;
-			LightningBoltEntity entity = new LightningBoltEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), false);
-			serverWorld.addLightningBolt(entity);
+//			LightningBoltEntity entity = new LightningBoltEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), false);
+//			serverWorld.addLightningBolt(entity);
 		}
 		return ActionResultType.SUCCESS;
 	}

@@ -2,9 +2,10 @@ package com.viruss.ahs.events;
 
 import com.viruss.ahs.AHS;
 import com.viruss.ahs.damage.DamageFilter;
-import com.viruss.ahs.player.attributes.BloodAttributes;
-import com.viruss.ahs.util.RegistryHandler;
+import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.util.EffectsRegistrar;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
@@ -14,6 +15,8 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AHS.MOD_ID,bus = Bus.FORGE/*,value = Dist.DEDICATED_SERVER*/) //SERVER-SIDE DONT WORK
 public class DamageEvent
@@ -29,13 +32,11 @@ public class DamageEvent
 					if (distance < 6) {
 						if ((int) (Math.random() * 100) < 50)
 							event.getEntityLiving().addPotionEffect(Potions.SLOWNESS.getEffects().get(0));
-
 					}
 
 					if (distance > 6 && distance < 8) {
 						if ((int) (Math.random() * 100) < 70)
 							event.getEntityLiving().addPotionEffect(Potions.STRONG_SLOWNESS.getEffects().get(0));
-
 					}
 
 					if (distance > 8 && distance < 20) {
@@ -59,9 +60,11 @@ public class DamageEvent
 			 if(DamageFilter.isZombieAttacker(event)) 
 			 {
 				 AHS.LOGGER.info("Player attacked by Zombie");
-				 player.getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).setBaseValue(event.getEntityLiving().getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()-10);
-				 player.addPotionEffect(new EffectInstance(RegistryHandler.BLEEDING.get(),300,0,false,false));
-				 player.sendMessage(new StringTextComponent("current blood level ="+event.getEntityLiving().getAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).getValue()));
+				 ModifiableAttributeInstance attribute = player.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get());
+
+				 attribute.setBaseValue(attribute.getValue()-10);
+				 player.addPotionEffect(new EffectInstance(EffectsRegistrar.BLEEDING.get(),300,0,false,false));
+				 player.sendMessage(new StringTextComponent("current blood level ="+attribute.getValue()), UUID.randomUUID());
 			 }
 //			 else
 //			 {

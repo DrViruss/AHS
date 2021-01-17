@@ -2,9 +2,9 @@ package com.viruss.ahs.items;
 
 import com.viruss.ahs.player.BloodType;
 import com.viruss.ahs.items.bases.AbstractFluidBag;
-import com.viruss.ahs.player.attributes.BloodAttributes;
+import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.util.ItemsRegistrar;
 import com.viruss.ahs.util.KeyboardHelper;
-import com.viruss.ahs.util.RegistryHandler;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -36,10 +36,6 @@ public class BloodBag extends AbstractFluidBag {
         this.full = full;
     }
 
-
-    //TODO: Set BloodGroup in Tag....mb...
-
-
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (KeyboardHelper.isHoldingShift()) {
@@ -66,7 +62,7 @@ public class BloodBag extends AbstractFluidBag {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
 
-            BloodType playersBG = new BloodType((int) playerIn.getAttributes().getAttributeInstance(BloodAttributes.BLOOD_TYPE_ATTRIBUTE).getValue());
+            BloodType playersBG = new BloodType((int) playerIn.getAttributeValue(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()));
             ItemStack heldItem = playerIn.getHeldItemMainhand();
             if (full) {
 
@@ -77,11 +73,11 @@ public class BloodBag extends AbstractFluidBag {
                 else
                     playerIn.addPotionEffect(new EffectInstance(Effects.POISON, 200, 0, false, false));
 
-                playerIn.setHeldItem(Hand.MAIN_HAND, RegistryHandler.Empty_BloodBag.get().getDefaultInstance());
+                playerIn.setHeldItem(Hand.MAIN_HAND, ItemsRegistrar.Empty_BloodBag.get().getDefaultInstance());
 
             } else {
                 playerIn.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 4, false, false));
-                playerIn.setHeldItem(Hand.MAIN_HAND, RegistryHandler.Full_BloodBag.get().getDefaultInstance());
+                playerIn.setHeldItem(Hand.MAIN_HAND, ItemsRegistrar.Full_BloodBag.get().getDefaultInstance());
                 heldItem = playerIn.getHeldItemMainhand();
                 heldItem.getOrCreateTag();
                 heldItem.getTag().putString(BloodGroupTagKey, playersBG.toString());
@@ -103,8 +99,6 @@ public class BloodBag extends AbstractFluidBag {
                 return true;
             }
         }
-//        AHS.LOGGER.warn("PLayersBG:" + playersBG.toString() + "\nReceivedBG" + ReceivedBG.toString());
-
         return false;
     }
 
@@ -112,8 +106,7 @@ public class BloodBag extends AbstractFluidBag {
      * Create NBT tag if ItemStack don't have BG tag
      * @param heldItem ItemStack
      */
-    private void NBTCreator(ItemStack heldItem)
-    {
+    private void NBTCreator(ItemStack heldItem) {
         if (this.full ) {
             CompoundNBT nbt = heldItem.getTag();
             if (nbt == null) {
