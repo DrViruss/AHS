@@ -4,6 +4,7 @@ import com.viruss.ahs.AHS;
 import com.viruss.ahs.damage.DamageFilter;
 import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.util.EffectsRegistrar;
+import com.viruss.ahs.util.PlayerHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.potion.EffectInstance;
@@ -60,11 +61,9 @@ public class DamageEvent
 			 if(DamageFilter.isZombieAttacker(event)) 
 			 {
 				 AHS.LOGGER.info("Player attacked by Zombie");
-				 ModifiableAttributeInstance attribute = player.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get());
-
-				 attribute.setBaseValue(attribute.getValue()-10);
-				 player.addPotionEffect(new EffectInstance(EffectsRegistrar.BLEEDING.get(),300,0,false,false));
-				 player.sendMessage(new StringTextComponent("current blood level ="+attribute.getValue()), UUID.randomUUID());
+				 PlayerHelper.degreesBloodAmount(player,10);
+				 player.addPotionEffect(new EffectInstance(EffectsRegistrar.BLEEDING.get(),100000,0,false,false));
+				 player.sendMessage(new StringTextComponent("current blood level ="+PlayerHelper.getBloodLVL(player)), UUID.randomUUID());
 			 }
 //			 else
 //			 {

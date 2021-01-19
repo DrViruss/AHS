@@ -1,5 +1,7 @@
 {
 "itemGroup.Advanced_Health_System_Tab":"Advanced Health System",
+"death.attack.outOfBlood": "%1$s loose to much blood",
+"death.attack.outOfBlood.player": "%1$s loose to much blood while fight with %2$s",
 
 "item.ahs.empty_bloodbag":"Blood bag",
 "item.ahs.full_bloodbag":"Blood bag",

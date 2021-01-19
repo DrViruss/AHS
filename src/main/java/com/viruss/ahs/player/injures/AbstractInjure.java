@@ -1,7 +1,5 @@
 package com.viruss.ahs.player.injures;
 
-import org.objectweb.asm.tree.AbstractInsnNode;
-
 import java.util.ArrayList;
 
 public class AbstractInjure implements IAbstractInjure{
@@ -11,9 +9,6 @@ public class AbstractInjure implements IAbstractInjure{
     public AbstractInjure(Type type, int duration) {
         this.type = type;
         this.duration = duration;
-    }
-
-    public AbstractInjure() {
     }
 
     @Override
@@ -42,15 +37,6 @@ public class AbstractInjure implements IAbstractInjure{
                 "type=" + type +
                 ", duration=" + duration +
                 '}';
-    }
-
-    public static AbstractInjure getOrCreate(ArrayList<AbstractInjure> arr,Type type)
-    {
-        for(AbstractInjure injure : arr)
-            if(injure.type == type)
-                return injure;
-        arr.add(new AbstractInjure(type,0));
-        return arr.get(arr.size()-1);
     }
 
     public enum Type{Broken,CutWound,PunctureWound,Laceration,Bleeding, Abrasion,Burns}

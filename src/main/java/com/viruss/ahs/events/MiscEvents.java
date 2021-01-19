@@ -1,9 +1,10 @@
 package com.viruss.ahs.events;
 
 import com.viruss.ahs.AHS;
-import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.player.capabilities.InjureCaps;
 import com.viruss.ahs.player.injures.AbstractInjure;
+import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.util.PlayerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -48,25 +49,8 @@ public class MiscEvents {
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event)
     {
         if (event.getObject() instanceof PlayerEntity)
-        {
-            PlayerEntity player = (PlayerEntity) event.getObject();
-
-//MobEntity.func_233666_p_().createMutableAttribute(BloodAttributes.BLOOD_LVL_ATTRIBUTE).create()
-
-
-                                    /*Attributes*/
-//            player.getAttributeManager().createInstanceIfAbsent(BloodAttributes.BLOOD_LVL_ATTRIBUTE);
-//            player.getAttributeManager().createInstanceIfAbsent(BloodAttributes.BLOOD_TYPE_ATTRIBUTE);
-
-                                    /*Capabilities*/
             event.addCapability(new ResourceLocation(AHS.MOD_ID,"injure"),new InjureCaps.InjureProvider());
-        }
     }
-
-
-
-
-
 
 
 
@@ -82,9 +66,8 @@ public class MiscEvents {
     @SubscribeEvent
     public static void tick(TickEvent.PlayerTickEvent event)
     {
-
-//			if(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName() != null)
-//				AHS.LOGGER.info(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName());
+        //			if(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName() != null)
+        //				AHS.LOGGER.info(event.player.getAttribute(ZombieMode.ZOMBIE).getAttribute().getName());
     }
 
     @SubscribeEvent
@@ -92,19 +75,14 @@ public class MiscEvents {
     {
         PlayerEntity player = event.getPlayer();
         if(!player.world.isRemote) {
-            Random random = new Random();
 
+            PlayerHelper.increaseBloodAmount(player);
+            PlayerHelper.randBloodGroup(player);
 
-            player.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get()).setBaseValue(100);
-            player.getAttribute(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()).setBaseValue(random.nextInt(7));
-
-
-                                        /*CapTEST*/
-            event.getPlayer().getCapability(InjureCaps.ABSTRACT_INJURE_CAPABILITY).ifPresent(handler -> {
-                    ArrayList<AbstractInjure> arr = handler.getData();
-                    arr.add(new AbstractInjure(AbstractInjure.Type.Bleeding, 0));
-
-                    System.out.println(handler.getData().toString());
+            player.getCapability(InjureCaps.ABSTRACT_INJURE_CAPABILITY).ifPresent(handler -> {
+                handler.getOrCreate(handler.getData(), AbstractInjure.Type.Bleeding).setDuration(10);
+                System.out.println(handler.getData().toString());
+                handler.setData(new ArrayList<>());
             });
         }
     }

@@ -1,12 +1,15 @@
 package com.viruss.ahs.player.effects;
 
-import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.player.damage.DamageSources;
+import com.viruss.ahs.util.PlayerHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
+import net.minecraft.util.text.StringTextComponent;
+
+import java.util.UUID;
 
 //TODO: Fix Icon Error msg
 public class BleedingEffect extends Effect {
@@ -18,15 +21,14 @@ public class BleedingEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
 
-        ModifiableAttributeInstance attribute = entityLivingBaseIn.getAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get());
-
-        if(attribute != null) {     //if this is player
-            if (attribute.getValue() == 30) {
-                if (!(((PlayerEntity) entityLivingBaseIn).isCreative() && entityLivingBaseIn.isSpectator()))     //TODO: OMG... Fix it..
-                    entityLivingBaseIn.onKillCommand();
+        if(entityLivingBaseIn instanceof PlayerEntity)
+        {
+            if(!(PlayerHelper.getBloodLVL(entityLivingBaseIn) == 30)) {
+                PlayerHelper.degreesBloodAmount(entityLivingBaseIn);
+                entityLivingBaseIn.sendMessage(new StringTextComponent("current blood level ="+PlayerHelper.getBloodLVL(entityLivingBaseIn)), UUID.randomUUID());
             }
-                else
-                    attribute.setBaseValue(attribute.getValue() - 0.01d);
+            else
+                PlayerHelper.killWithCustomSource(entityLivingBaseIn,DamageSources.OUT_OF_BLOOD);
         }
     }
 

@@ -5,6 +5,7 @@ import com.viruss.ahs.items.bases.AbstractFluidBag;
 import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.util.ItemsRegistrar;
 import com.viruss.ahs.util.KeyboardHelper;
+import com.viruss.ahs.util.PlayerHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -62,14 +63,16 @@ public class BloodBag extends AbstractFluidBag {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
 
-            BloodType playersBG = new BloodType((int) playerIn.getAttributeValue(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()));
+            BloodType playersBG = PlayerHelper.getBloodGroup(playerIn);
             ItemStack heldItem = playerIn.getHeldItemMainhand();
             if (full) {
 
                 NBTCreator(heldItem);
 
-                if (isSuitableBG(playersBG,new BloodType(heldItem.getTag().getString(BloodGroupTagKey))))
+                if (isSuitableBG(playersBG,getCurrentBG(heldItem))) {
                     playerIn.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 0, false, false));
+                    PlayerHelper.increaseBloodAmount(playerIn,30);
+                }
                 else
                     playerIn.addPotionEffect(new EffectInstance(Effects.POISON, 200, 0, false, false));
 
@@ -84,6 +87,10 @@ public class BloodBag extends AbstractFluidBag {
             }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    private BloodType getCurrentBG(ItemStack heldItem) {
+        return new BloodType(heldItem.getTag().getString(BloodGroupTagKey));
     }
 
     /**

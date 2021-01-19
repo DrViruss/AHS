@@ -1,6 +1,6 @@
 package com.viruss.ahs;
 
-import com.viruss.ahs.util.BlockRegistrar;
+import com.viruss.ahs.util.BlocksRegistrar;
 import com.viruss.ahs.util.ItemsRegistrar;
 import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.player.capabilities.IAbstractInjureCapability;
@@ -51,7 +51,7 @@ public class AHS
     void initDefRegs(IEventBus modbus)
     {
         ItemsRegistrar.ITEMS_REGISTER.register(modbus);
-        BlockRegistrar.BLOCKS_REGISTER.register(modbus);
+        BlocksRegistrar.BLOCKS_REGISTER.register(modbus);
         EffectsRegistrar.EFFECTS_REGISTER.register(modbus);
         AttributesRegistrar.ATTRIBUTES_REGISTER.register(modbus);
     }
@@ -70,7 +70,7 @@ public class AHS
      */
     public static void addPlayerEntityAttributes(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-                AttributeModifierMap oldmap = null;
+            AttributeModifierMap oldmap = null;
             Field forgeMapField = null;
 
 
@@ -91,8 +91,8 @@ public class AHS
             }
 
             if (oldmap == null) {
-                    Field vanillaMapField = ObfuscationReflectionHelper.findField(GlobalEntityTypeAttributes.class, "field_233833_b_");
-                    vanillaMapField.setAccessible(true);
+                Field vanillaMapField = ObfuscationReflectionHelper.findField(GlobalEntityTypeAttributes.class, "field_233833_b_");
+                vanillaMapField.setAccessible(true);
 
 
                 try {
@@ -104,8 +104,8 @@ public class AHS
 
             }
 
-                Field internalMapField = ObfuscationReflectionHelper.findField(AttributeModifierMap.class, "field_233802_a_");
-                internalMapField.setAccessible(true);
+            Field internalMapField = ObfuscationReflectionHelper.findField(AttributeModifierMap.class, "field_233802_a_");
+            internalMapField.setAccessible(true);
             Map<Attribute, ModifiableAttributeInstance> internalMap = null;
 
 
@@ -117,12 +117,12 @@ public class AHS
 
             AttributeModifierMap.MutableAttribute builder = AttributeModifierMap.createMutableAttribute();
 
-                for (Map.Entry<Attribute, ModifiableAttributeInstance> e : internalMap.entrySet())
-                    builder.createMutableAttribute(e.getKey(), e.getValue().getBaseValue());
+            for (Map.Entry<Attribute, ModifiableAttributeInstance> e : internalMap.entrySet())
+                builder.createMutableAttribute(e.getKey(), e.getValue().getBaseValue());
 
 
 
-                GlobalEntityTypeAttributes.put(EntityType.PLAYER, builder.createMutableAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get()).createMutableAttribute(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()).create());
+            GlobalEntityTypeAttributes.put(EntityType.PLAYER, builder.createMutableAttribute(AttributesRegistrar.BLOOD_LVL_ATTRIBUTE.get()).createMutableAttribute(AttributesRegistrar.BLOOD_TYPE_ATTRIBUTE.get()).create());
 
         });
     }

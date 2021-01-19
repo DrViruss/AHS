@@ -10,34 +10,22 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Mod.EventBusSubscriber(modid = AHS.MOD_ID,bus = Bus.FORGE)
+							//WTF?
 public class DamageFilter {
-	
+	//TODO: remove this thing
 	  public static boolean isPlayerDamaged(LivingAttackEvent event)
 	  {
-		if(event.getEntity() instanceof PlayerEntity)
-			return true;
-		else
-			return false;
+		  return event.getEntity() instanceof PlayerEntity;
 	  }
 	  
 	  public static boolean isPlayerFall( LivingFallEvent event)
 	  {
-		  if((event.getEntityLiving() instanceof PlayerEntity))
-		  {
-				return true;
-		  }
-			else
-				return false;
+		  return event.getEntityLiving() instanceof PlayerEntity;
 	  }
 	  
 	  public static boolean isZombieAttacker(LivingAttackEvent event)
 	  {
-		  if((event.getSource().getTrueSource() instanceof ZombieEntity))
-		  {
-				return true;
-		  }
-			else
-				return false;
+		  return event.getSource().getTrueSource() instanceof ZombieEntity;
 	  }
 	  
 	  public static void DamageSystem(PlayerEntity player)

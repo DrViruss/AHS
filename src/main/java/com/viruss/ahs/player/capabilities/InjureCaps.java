@@ -14,8 +14,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class InjureCaps {
-//    public static final String NBT_PartKEY = "abstractInjure_Part";
-//    public static final String NBT_DurKEY = "abstractInjure_Dur";
 
     @CapabilityInject(IAbstractInjureCapability.class)
     public static final Capability<IAbstractInjureCapability> ABSTRACT_INJURE_CAPABILITY = null;
@@ -114,6 +112,7 @@ public class InjureCaps {
         public void setData(ArrayList<AbstractInjure> data) {
             this.data = data;
         }
+
     }
 
 }
