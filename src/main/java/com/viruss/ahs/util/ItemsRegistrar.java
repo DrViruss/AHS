@@ -1,9 +1,7 @@
 package com.viruss.ahs.util;
 
 import com.viruss.ahs.AHS;
-import com.viruss.ahs.items.BloodBag;
-import com.viruss.ahs.items.IceBag;
-import com.viruss.ahs.items.MedKit;
+import com.viruss.ahs.items.*;
 import com.viruss.ahs.items.String;
 import com.viruss.ahs.items.bases.CustomItem;
 import com.viruss.ahs.items.bases.ItemBase;
@@ -17,7 +15,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemsRegistrar {
-
+                                    /*TODO: split mod to addons*/
     public static final DeferredRegister<Item> ITEMS_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, AHS.MOD_ID);
 
 
@@ -31,6 +29,7 @@ public class ItemsRegistrar {
     public static final RegistryObject<Item> Infected_Syringe = ITEMS_REGISTER.register("infected_syringe", () -> new FullSyringe(FullSyringe.Fluid.Z_MIXTURE));
     public static final RegistryObject<Item> Adrenaline_Syringe = ITEMS_REGISTER.register("adrenaline_syringe", () -> new FullSyringe(FullSyringe.Fluid.ADRENALINE));
     public static final RegistryObject<Item> Morphine_Syringe = ITEMS_REGISTER.register("morphine_syringe", () -> new FullSyringe(FullSyringe.Fluid.MORPHINE));
+    public static final RegistryObject<Item> Blood_Syringe = ITEMS_REGISTER.register("blood_syringe",() -> new FullSyringe(FullSyringe.Fluid.BLOOD));
 
     public static final RegistryObject<Item> Silk_String = ITEMS_REGISTER.register("silk_string", String::new);
     public static final RegistryObject<Item> Rubber_String = ITEMS_REGISTER.register("rubber_string", String::new);
@@ -61,9 +60,9 @@ public class ItemsRegistrar {
     public static final RegistryObject<Item> Antibiotics = ITEMS_REGISTER.register("antibiotics",()-> new PillsBase(Effects.ABSORPTION,600,0.3f));
     public static final RegistryObject<Item> Painkillers = ITEMS_REGISTER.register("painkillers",()-> new PillsBase(Effects.REGENERATION,600,0.3f));
 
-    //	public static final RegistryObject<Item> Test_Tube = ITEMS.register("test_tube", TestTube::new);
-    //	public static final RegistryObject<Item> Zombie_Saliva = ITEMS.register("zombie_saliva", TestTube::new);
-    //	public static final RegistryObject<Item> Z_Vaccine = ITEMS.register("z_vaccine", TestTube::new);
+    public static final RegistryObject<Item> Test_Tube = ITEMS_REGISTER.register("test_tube", TestTube::new);
+    public static final RegistryObject<Item> Zombie_Saliva = ITEMS_REGISTER.register("zombie_saliva", TestTube::new);
+    public static final RegistryObject<Item> Z_Vaccine = ITEMS_REGISTER.register("z_vaccine", TestTube::new);
 
 
                                                     /*TEST ITEMS*/

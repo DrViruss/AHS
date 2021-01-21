@@ -30,10 +30,6 @@ public class MiscEvents {
 //        if(traget instanceof ZombieEntity) {
 //            if (player.getHeldItemMainhand().getItem() == RegistryHandler.Test_Tube.get())
 //                player.setHeldItem(Hand.MAIN_HAND, RegistryHandler.Zombie_Saliva.get().getDefaultInstance());
-//
-//            if (player.getHeldItemMainhand().getItem() == RegistryHandler.Empty_Syringe.get()) {
-//                player.setHeldItem(Hand.MAIN_HAND, RegistryHandler.Infected_Syringe.get().getDefaultInstance());
-//                traget.attackEntityFrom(DamageSource.GENERIC, 0.5f);
 //            }
 //        }
 //        if(traget instanceof PlayerEntity) {
@@ -80,8 +76,8 @@ public class MiscEvents {
             PlayerHelper.randBloodGroup(player);
 
             player.getCapability(InjureCaps.ABSTRACT_INJURE_CAPABILITY).ifPresent(handler -> {
-                handler.getOrCreate(handler.getData(), AbstractInjure.Type.Bleeding).setDuration(10);
-                System.out.println(handler.getData().toString());
+//                handler.getOrCreate(handler.getData(), AbstractInjure.Type.Bleeding).setDuration(10);
+//                System.out.println(handler.getData().toString());
                 handler.setData(new ArrayList<>());
             });
         }

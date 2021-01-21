@@ -1,7 +1,5 @@
 package com.viruss.ahs.player.injures;
 
-import java.util.ArrayList;
-
 public class AbstractInjure implements IAbstractInjure{
     Type type;
     int duration = 0;

@@ -2,16 +2,18 @@ package com.viruss.ahs.player;
 
 import java.util.ArrayList;
 
-public class BloodType {
+public class BloodGroup {
+    public static final java.lang.String BloodGroupTagKey = "BloodGroup";
+
     Type type;
     boolean positive = false;
 
-    public BloodType(Type type, boolean positive) {
+    public BloodGroup(Type type, boolean positive) {
         this.type = type;
         this.positive = positive;
     }
 
-    public BloodType(int type) {
+    public BloodGroup(int type) {
         if(type<4)
             this.positive = true;
 
@@ -26,7 +28,7 @@ public class BloodType {
 
     }
 
-    public BloodType(String type) {
+    public BloodGroup(String type) {
         this.type = Type.valueOf(type.substring(0,type.length()-1));
         this.positive = type.charAt(type.length()-1) == '+';
     }
@@ -41,59 +43,59 @@ public class BloodType {
 
     public enum Type{A,B,AB,O}
 
-    public static ArrayList<BloodType> getSuitableGroups(BloodType type)
+    public static ArrayList<BloodGroup> getSuitableGroups(BloodGroup type)
     {
-        ArrayList<BloodType> result = new ArrayList<>();
+        ArrayList<BloodGroup> result = new ArrayList<>();
 
         switch (type.type)
         {
             case A:
                 if (type.positive) {
-                    result.add(new BloodType(Type.A, true));
-                    result.add(new BloodType(Type.A, false));
-                    result.add(new BloodType(Type.O, true));
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.A, true));
+                    result.add(new BloodGroup(Type.A, false));
+                    result.add(new BloodGroup(Type.O, true));
+                    result.add(new BloodGroup(Type.O, false));
                 }
                 else
                 {
-                    result.add(new BloodType(Type.A, false));
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.A, false));
+                    result.add(new BloodGroup(Type.O, false));
                 }
             case B:
                 if (type.positive) {
-                    result.add(new BloodType(Type.B, true));
-                    result.add(new BloodType(Type.B, false));
-                    result.add(new BloodType(Type.O, true));
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.B, true));
+                    result.add(new BloodGroup(Type.B, false));
+                    result.add(new BloodGroup(Type.O, true));
+                    result.add(new BloodGroup(Type.O, false));
                 }
                 else
                 {
-                    result.add(new BloodType(Type.B, false));
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.B, false));
+                    result.add(new BloodGroup(Type.O, false));
                 }
 
             case AB:
                 if (type.positive) {
                     for(Type typeE : Type.values()) {
-                        result.add(new BloodType(typeE, true));
-                        result.add(new BloodType(typeE, false));
+                        result.add(new BloodGroup(typeE, true));
+                        result.add(new BloodGroup(typeE, false));
                     }
 
                 }
                 else
                 {
                     for(Type typeE : Type.values())
-                        result.add(new BloodType(typeE, false));
+                        result.add(new BloodGroup(typeE, false));
                 }
 
             case O:
                 if (type.positive) {
-                    result.add(new BloodType(Type.O, true));
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.O, true));
+                    result.add(new BloodGroup(Type.O, false));
                 }
                 else
                 {
-                    result.add(new BloodType(Type.O, false));
+                    result.add(new BloodGroup(Type.O, false));
                 }
         }
         return result;
@@ -115,8 +117,8 @@ public class BloodType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BloodType bloodType = (BloodType) o;
-        return positive == bloodType.positive && type == bloodType.type;
+        BloodGroup bloodGroup = (BloodGroup) o;
+        return positive == bloodGroup.positive && type == bloodGroup.type;
     }
 
 }

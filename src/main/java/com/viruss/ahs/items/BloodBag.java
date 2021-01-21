@@ -1,8 +1,7 @@
 package com.viruss.ahs.items;
 
-import com.viruss.ahs.player.BloodType;
+import com.viruss.ahs.player.BloodGroup;
 import com.viruss.ahs.items.bases.AbstractFluidBag;
-import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.util.ItemsRegistrar;
 import com.viruss.ahs.util.KeyboardHelper;
 import com.viruss.ahs.util.PlayerHelper;
@@ -25,8 +24,6 @@ import java.util.List;
 
 public class BloodBag extends AbstractFluidBag {
     boolean full;
-
-    public static final java.lang.String BloodGroupTagKey = "BloodGroup";
 
     /**
      * Create new BloodBag
@@ -51,7 +48,7 @@ public class BloodBag extends AbstractFluidBag {
             tooltip.add(new StringTextComponent(msg));
 
             if (this.full) {
-                tooltip.add(new StringTextComponent("Blood Group: " + stack.getTag().get(BloodGroupTagKey).getString()));
+                tooltip.add(new StringTextComponent("Blood Group: " + stack.getTag().get(BloodGroup.BloodGroupTagKey).getString()));
             }
         } else {
             tooltip.add(new StringTextComponent("Hold" + "\u00A7e" + " Shift " + "\u00A77" + "for more information!"));
@@ -63,8 +60,8 @@ public class BloodBag extends AbstractFluidBag {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
 
-            BloodType playersBG = PlayerHelper.getBloodGroup(playerIn);
-            ItemStack heldItem = playerIn.getHeldItemMainhand();
+            BloodGroup playersBG = PlayerHelper.getBloodGroup(playerIn);
+            ItemStack heldItem = playerIn.getHeldItem(handIn);
             if (full) {
 
                 NBTCreator(heldItem);
@@ -76,21 +73,18 @@ public class BloodBag extends AbstractFluidBag {
                 else
                     playerIn.addPotionEffect(new EffectInstance(Effects.POISON, 200, 0, false, false));
 
-                playerIn.setHeldItem(Hand.MAIN_HAND, ItemsRegistrar.Empty_BloodBag.get().getDefaultInstance());
+                PlayerHelper.replaceItem(playerIn,handIn,1,ItemsRegistrar.Empty_BloodBag.get(),1);
 
             } else {
                 playerIn.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 4, false, false));
-                playerIn.setHeldItem(Hand.MAIN_HAND, ItemsRegistrar.Full_BloodBag.get().getDefaultInstance());
-                heldItem = playerIn.getHeldItemMainhand();
-                heldItem.getOrCreateTag();
-                heldItem.getTag().putString(BloodGroupTagKey, playersBG.toString());
+                PlayerHelper.replaceItem(playerIn,handIn,1,ItemsRegistrar.Full_BloodBag.get(),1,BloodGroup.BloodGroupTagKey,playersBG.toString());
             }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
-    private BloodType getCurrentBG(ItemStack heldItem) {
-        return new BloodType(heldItem.getTag().getString(BloodGroupTagKey));
+    private BloodGroup getCurrentBG(ItemStack heldItem) {
+        return new BloodGroup(heldItem.getTag().getString(BloodGroup.BloodGroupTagKey));
     }
 
     /**
@@ -99,9 +93,9 @@ public class BloodBag extends AbstractFluidBag {
      * @param ReceivedBG BloodGroup which player try to use
      * @return true if you can receive this BloodGroup
      */
-    private boolean isSuitableBG(BloodType playersBG, BloodType ReceivedBG) {
-        ArrayList<BloodType> suitableBGList = BloodType.getSuitableGroups(playersBG);
-        for (BloodType type : suitableBGList) {
+    private boolean isSuitableBG(BloodGroup playersBG, BloodGroup ReceivedBG) {
+        ArrayList<BloodGroup> suitableBGList = BloodGroup.getSuitableGroups(playersBG);
+        for (BloodGroup type : suitableBGList) {
             if (ReceivedBG.equals(type)) {
                 return true;
             }
@@ -117,9 +111,9 @@ public class BloodBag extends AbstractFluidBag {
         if (this.full ) {
             CompoundNBT nbt = heldItem.getTag();
             if (nbt == null) {
-                heldItem.getOrCreateChildTag(BloodGroupTagKey);
+                heldItem.getOrCreateChildTag(BloodGroup.BloodGroupTagKey);
                 nbt = heldItem.getTag();
-                nbt.putString(BloodGroupTagKey, "O-");
+                nbt.putString(BloodGroup.BloodGroupTagKey, "O-");
             }
         }
     }
