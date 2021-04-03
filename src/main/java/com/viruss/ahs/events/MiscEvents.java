@@ -6,9 +6,11 @@ import com.viruss.ahs.player.injures.AbstractInjure;
 import com.viruss.ahs.util.AttributesRegistrar;
 import com.viruss.ahs.util.PlayerHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -77,10 +79,16 @@ public class MiscEvents {
 
             player.getCapability(InjureCaps.ABSTRACT_INJURE_CAPABILITY).ifPresent(handler -> {
 //                handler.getOrCreate(handler.getData(), AbstractInjure.Type.Bleeding).setDuration(10);
-//                System.out.println(handler.getData().toString());
                 handler.setData(new ArrayList<>());
             });
         }
+
+                        /*TEST*/
+
+
+
+
+
     }
 
 

@@ -1,11 +1,14 @@
 package com.viruss.ahs;
 
-import com.viruss.ahs.util.BlocksRegistrar;
-import com.viruss.ahs.util.ItemsRegistrar;
-import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.TEST.EmptyRenderer;
+import com.viruss.ahs.TEST.TEST_Registrar;
+import com.viruss.ahs.player.PlayerPartEntity;
 import com.viruss.ahs.player.capabilities.IAbstractInjureCapability;
 import com.viruss.ahs.player.capabilities.InjureCaps;
+import com.viruss.ahs.util.AttributesRegistrar;
+import com.viruss.ahs.util.BlocksRegistrar;
 import com.viruss.ahs.util.EffectsRegistrar;
+import com.viruss.ahs.util.ItemsRegistrar;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -17,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -54,6 +58,7 @@ public class AHS
         BlocksRegistrar.BLOCKS_REGISTER.register(modbus);
         EffectsRegistrar.EFFECTS_REGISTER.register(modbus);
         AttributesRegistrar.ATTRIBUTES_REGISTER.register(modbus);
+        TEST_Registrar.ENTITIES.register(modbus);
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -130,7 +135,10 @@ public class AHS
 
     private void doClientStuff(final FMLClientSetupEvent event) 
     {
-    	
+        RenderingRegistry.registerEntityRenderingHandler(TEST_Registrar.PPE.get(), EmptyRenderer::new);
+        
+        //TODO:killME
+        RenderingRegistry.registerEntityRenderingHandler(TEST_Registrar.SMTH_ELSE.get(), EmptyRenderer::new);
     }
     
     public static final ItemGroup AHS_Tab = new ItemGroup("Advanced_Health_System_Tab") {

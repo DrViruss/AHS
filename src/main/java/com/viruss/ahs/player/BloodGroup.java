@@ -46,10 +46,11 @@ public class BloodGroup {
     public static ArrayList<BloodGroup> getSuitableGroups(BloodGroup type)
     {
         ArrayList<BloodGroup> result = new ArrayList<>();
+//        if(type.type == Type.A)
 
-        switch (type.type)
-        {
-            case A:
+//        switch (type.type)
+//        {
+        if(type.type == Type.A)
                 if (type.positive) {
                     result.add(new BloodGroup(Type.A, true));
                     result.add(new BloodGroup(Type.A, false));
@@ -61,7 +62,7 @@ public class BloodGroup {
                     result.add(new BloodGroup(Type.A, false));
                     result.add(new BloodGroup(Type.O, false));
                 }
-            case B:
+        if(type.type == Type.B)
                 if (type.positive) {
                     result.add(new BloodGroup(Type.B, true));
                     result.add(new BloodGroup(Type.B, false));
@@ -74,7 +75,7 @@ public class BloodGroup {
                     result.add(new BloodGroup(Type.O, false));
                 }
 
-            case AB:
+        if(type.type == Type.AB)
                 if (type.positive) {
                     for(Type typeE : Type.values()) {
                         result.add(new BloodGroup(typeE, true));
@@ -88,7 +89,7 @@ public class BloodGroup {
                         result.add(new BloodGroup(typeE, false));
                 }
 
-            case O:
+        if(type.type == Type.O)
                 if (type.positive) {
                     result.add(new BloodGroup(Type.O, true));
                     result.add(new BloodGroup(Type.O, false));
@@ -97,7 +98,8 @@ public class BloodGroup {
                 {
                     result.add(new BloodGroup(Type.O, false));
                 }
-        }
+//        }
+        System.out.println("\n Given group:"+type+"\n Suitable BGs:"+result.toString());
         return result;
     }
 

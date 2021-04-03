@@ -28,12 +28,13 @@ public class PlayerHelper {
         heldItem.shrink(srinkCount);
         ItemStack result = new ItemStack(newItem,itemsCount);
         PlayerHelper.createTag(result, tagKey, tagData);
-        player.setHeldItem(hand, result);
+//        player.setHeldItem(hand, result);
+        player.addItemStackToInventory(result);
     }
     public static void replaceItem(PlayerEntity player, Hand hand,int srinkCount, Item newItem,int itemsCount){
         ItemStack heldItem = player.getHeldItem(hand);
         heldItem.shrink(srinkCount);
-        player.setHeldItem(hand, new ItemStack(newItem,itemsCount));
+        player.addItemStackToInventory(new ItemStack(newItem,itemsCount));
     }
 
                                 /*Blood amount Attribute*/

@@ -29,7 +29,6 @@ public class EmptySyringe extends ItemBase {
                 PlayerHelper.replaceItem(playerIn,hand,1,ItemsRegistrar.Infected_Syringe.get(),1);
             else if(target instanceof PlayerEntity)
                 PlayerHelper.replaceItem(playerIn,hand,1,ItemsRegistrar.Blood_Syringe.get(),1, BloodGroup.BloodGroupTagKey,PlayerHelper.getBloodGroup(target).toString());
-
             target.attackEntityFrom(DamageSources.EXPERIMENT,0.5f);
         }
 
